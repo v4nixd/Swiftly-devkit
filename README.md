@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/github/downloads/v4nixd/Swiftly-devkit/total" alt="Downloads"> 
   <img src="https://img.shields.io/github/contributors/v4nixd/Swiftly-devkit?color=dark-green" alt="Contributors">
   <img src="https://img.shields.io/github/issues/v4nixd/Swiftly-devkit" alt="Issues">
-  <img src="https://img.shields.io/github/license/DeadPoolCS2/v4nixd/Swiftly-devkit" alt="License">
+  <img src="https://img.shields.io/github/license/v4nixd/Swiftly-devkit" alt="License">
 </p>
 
 ---
