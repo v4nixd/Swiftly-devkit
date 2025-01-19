@@ -22,9 +22,8 @@
 
 ### Installation 🛠️
 
-1. Download the latest release
-2. Create a new folder in `game/csgo/addons/swiftly/plugins/` called `Devkit`
-3. Unzip the plugin into the `Devkit` folder you created
+1. Download the [latest release](https://github.com/v4nixd/Swiftly-devkit/releases/latest)
+2. Unzip the plugin into `game/csgo/addons/swiftly/plugins/`
 
 This is how it has to look
 ```
