@@ -8,12 +8,6 @@ function isPlayerValid(player)
     if not player then return end
 end
 
-function isPluginProvided(pluginTarget, playerid, action)
-    if not pluginTarget then
-        return ReplyToCommand(playerid, chat_prefix, "You need to specify a {GREEN}plugin{DEFAULT} to " .. action .. " -> {YELLOW}!" .. action .. " <plugin_name>{DEFAULT}")
-    end
-end
-
 commands:Register("reload", function (playerid, args)
     local chat_prefix = "[Devkit]"
 
@@ -22,9 +16,11 @@ commands:Register("reload", function (playerid, args)
     isPlayerValid(player)
 
     local pluginTarget = args[1]
-    isPluginProvided(pluginTarget, playerid, "reload")
+    if not pluginTarget then
+        return ReplyToCommand(playerid, chat_prefix, "You need to specify a {GREEN}plugin{DEFAULT} to reload -> {YELLOW}!reload <plugin_name>{DEFAULT}")
+    end
 
-    if GetPluginState(pluginTarget).Stopped then
+    if GetPluginState(pluginTarget) == 1 then
         return ReplyToCommand(playerid, chat_prefix, "Plugin {RED}isn't loaded{DEFAULT}, please first load it -> !load <plugin_name>")
     end
 
@@ -33,7 +29,7 @@ commands:Register("reload", function (playerid, args)
     SetTimeout(150, function ()
         pluginState = GetPluginState(pluginTarget) 
 
-        if pluginState == PluginState_t.Started then
+        if pluginState == 0 then
             return ReplyToCommand(playerid, chat_prefix, "Plugin {GREEN}successfully{DEFAULT} reloaded")
         else
             return ReplyToCommand(playerid, chat_prefix, "Plugin reloaded with {RED}error{DEFAULT}, {YELLOW}check console for details")
@@ -47,9 +43,11 @@ commands:Register("load", function (playerid, args, argc, silent, prefix)
     isPlayerValid(player)
 
     local pluginTarget = args[1]
-    isPluginProvided(pluginTarget, playerid, "load")
+    if not pluginTarget then
+        return ReplyToCommand(playerid, chat_prefix, "You need to specify a {GREEN}plugin{DEFAULT} to load -> {YELLOW}!load <plugin_name>{DEFAULT}")
+    end
 
-    if GetPluginState(pluginTarget).Started then
+    if GetPluginState(pluginTarget) == 0 then
         return ReplyToCommand(playerid, chat_prefix, "Plugin {RED}is already loaded{DEFAULT}, please first unload it -> !unload <plugin_name>")
     end
 
@@ -58,7 +56,7 @@ commands:Register("load", function (playerid, args, argc, silent, prefix)
     SetTimeout(150, function ()
         local pluginState = GetPluginState(pluginTarget)
 
-        if pluginState == PluginState_t.Started then
+        if pluginState == 0 then
             return ReplyToCommand(playerid, chat_prefix, "Plugin {GREEN}successfully{DEFAULT} loaded")
         else
             return ReplyToCommand(playerid, chat_prefix, "Plugin loaded with {RED}error{DEFAULT}, {YELLOW}check console for details")
@@ -72,9 +70,11 @@ commands:Register("unload", function (playerid, args, argc, silent, prefix)
     isPlayerValid(player)
 
     local pluginTarget = args[1]
-    isPluginProvided(pluginTarget, playerid, "unload")
+    if not pluginTarget then
+        return ReplyToCommand(playerid, chat_prefix, "You need to specify a {GREEN}plugin{DEFAULT} to unload -> {YELLOW}!unload <plugin_name>{DEFAULT}")
+    end
 
-    if GetPluginState(pluginTarget).Stopped then
+    if GetPluginState(pluginTarget) == 1 then
         return ReplyToCommand(playerid, chat_prefix, "Plugin {RED}is already unloaded{DEFAULT}, please first load it -> !load <plugin_name>")
     end
 
@@ -83,7 +83,7 @@ commands:Register("unload", function (playerid, args, argc, silent, prefix)
     SetTimeout(150, function ()
         local pluginState = GetPluginState(pluginTarget)
 
-        if pluginState == PluginState_t.Stopped then
+        if pluginState == 1 then
             return ReplyToCommand(playerid, chat_prefix, "Plugin {GREEN}successfully{DEFAULT} unloaded")
         else
             return ReplyToCommand(playerid, chat_prefix, "Plugin unloaded with {RED}error{DEFAULT}, {YELLOW}check console for details")
